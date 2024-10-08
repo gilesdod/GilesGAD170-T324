@@ -14,6 +14,7 @@ public class NightOfTheGoblins : MonoBehaviour
     
     float GoblinHealth;
     int GoblinLVL;
+    int GoblinEXP;
 
   
     // Start is called before the first frame update
@@ -57,7 +58,7 @@ public class NightOfTheGoblins : MonoBehaviour
                     print($"The player is now LVL {PlayerLVL}");
                     print($"Your ATK Damage is now {PlayerATK}!");
                     PlayerEXP = 0;
-                    
+                    GoblinBTL = false;
                 }
             }
 
@@ -72,14 +73,13 @@ public class NightOfTheGoblins : MonoBehaviour
             {
                 print("So what will it be? Will you press SPACE and fight?");
                 PlayerTurn = true;
-                
+
 
             }
 
             if (Input.GetKeyDown(KeyCode.Space) && GoblinBTL == false && PlayerTurn == true)
-            {               
+            {
                 Battle();
-                PlayerTurn = false;
                 
             }
             
@@ -90,21 +90,36 @@ public class NightOfTheGoblins : MonoBehaviour
 
                 if (GoblinHealth <= 0)
                 {
-                    print("You deafeated the Goblin!");
+                    GoblinEXP = (Random.Range(5, 10) * GoblinLVL);
+                    PlayerEXP += GoblinEXP;
+                    print("You defeated the Goblin!");
+                    print($"You gained {GoblinEXP} EXP");
                     PlayerTurn = false;
+                    
+                    BTLStart = true;
 
+                    if (PlayerEXP > (PlayerLVL * 10))
+                    {
+                        print("You have enough EXP to LVL UP");
+                        print("Press UP!");
+                        return;
+                    }
+
+                    GoblinBTL = false;
+                    return;
                 }
 
                 else
                 {
                     print($"It has {Mathf.FloorToInt(GoblinHealth)} Health left!");
-                    PlayerTurn = false;
-
 
                 }
 
+            }
 
-
+            else
+            {
+                return;
             }
         }
 
