@@ -83,12 +83,12 @@ public class NightOfTheGoblins : MonoBehaviour
                 
             }
             
-            if (Input.GetKeyDown(KeyCode.Space) && PlayerTurn == true && GoblinBTL == true)
+            if (Input.GetKeyDown(KeyCode.Space) && PlayerTurn == true && GoblinBTL == true && BTLStart == false)
             {
                 GoblinHealth -= PlayerATK;
                 print($"You slashed at the goblin for {Mathf.FloorToInt(PlayerATK)} Damage!");
 
-                if (GoblinHealth <= 0)
+                if (GoblinHealth <= 0.99)
                 {
                     GoblinEXP = (Random.Range(5, 10) * GoblinLVL);
                     PlayerEXP += GoblinEXP;
