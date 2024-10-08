@@ -53,7 +53,7 @@ public class NightOfTheGoblins : MonoBehaviour
                 {
 
                     PlayerLVL++;
-                    PlayerATK = (PlayerATK * 1.25f);
+                    PlayerATK += (PlayerATK * 1.25f);
                     print("Well Done!");
                     print($"The player is now LVL {PlayerLVL}");
                     print($"Your ATK Damage is now {PlayerATK}!");
