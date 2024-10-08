@@ -19,7 +19,7 @@ public class NightOfTheGoblins : MonoBehaviour
     int GoblinEXP;
 
   
-    // Start is called before the first frame update
+    // Start is called before the first frame update, displaying a quick introduction.
     void Start()
     {
 
@@ -76,12 +76,13 @@ public class NightOfTheGoblins : MonoBehaviour
         //The game runs because this boolean is false. When the player reaches LVL 5 they will make it true, and win. 
         if (GameWon == false)
         {
-
+            //The UP ARROW will display stats at any point in the game.
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 PlayerStats();
             }
 
+            //This is the win condition that will trigger the GameWon boolean.
             if (PlayerLVL == 5)
             {
                 print("You defeated the Goblins with your LVL 5 Laser Eyes Ability. You won the Game!");
@@ -89,25 +90,28 @@ public class NightOfTheGoblins : MonoBehaviour
                 return;
             }
 
+            //If there is no battle and it's not the players turn it will hand over control to the player and display what input is required.
             if (GoblinBTL == false && PlayerTurn == false)
             {
                 print("So what will it be? Will you press SPACE and fight?");
                 PlayerTurn = true;
 
-
             }
 
+            //Once the player presses SPACE outside battle, it will trigger a new battle and refresh the Goblin's stats.
             if (Input.GetKeyDown(KeyCode.Space) && GoblinBTL == false && PlayerTurn == true)
             {
                 Battle();
                 return;
             }
             
+            //This is the function for striking the Goblin, triggered by being in battle, pressing Space when it is the player's turn and after the Goblin has been initialised.
             if (Input.GetKeyDown(KeyCode.Space) && PlayerTurn == true && GoblinBTL == true && BTLStart == false)
             {
                 GoblinHealth -= Mathf.FloorToInt(PlayerATK);
                 print($"You slashed at the goblin for {Mathf.FloorToInt(PlayerATK)} Damage!");
 
+                //If you killed the goblin.
                 if (GoblinHealth <= 0)
                 {
                     GoblinEXP = (Random.Range(5, 10) * GoblinLVL);
@@ -129,6 +133,7 @@ public class NightOfTheGoblins : MonoBehaviour
                     return;
                 }
 
+                //Otherwise, display its health so the player knows they will need to continue fighting and what input to use.
                 else
                 {
                     print($"It has {Mathf.FloorToInt(GoblinHealth)} Health left!");
@@ -138,10 +143,6 @@ public class NightOfTheGoblins : MonoBehaviour
 
             }
 
-            else
-            {
-                return;
-            }
         }
 
     }
