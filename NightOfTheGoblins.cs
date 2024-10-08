@@ -45,6 +45,30 @@ public class NightOfTheGoblins : MonoBehaviour
         }   
     }
 
+    //Player can call on this function to reveal vital stats about the player.
+    void PlayerStats()
+    {
+        if (PlayerEXP >= (PlayerLVL * 10))
+        {
+
+            PlayerLVL++;
+            PlayerATK += (PlayerATK * 1.25f);
+            print("Well Done!");
+            print($"The player is now LVL {PlayerLVL}");
+            print($"Your ATK Damage is now {Mathf.FloorToInt(PlayerATK)}!");
+            PlayerEXP = 0;
+            GoblinBTL = false;
+        }
+
+        else
+        {
+            print($"Your Attack Damage is {Mathf.FloorToInt(PlayerATK)}");
+            print($"Player is LVL {PlayerLVL}");
+            print($"You have {PlayerEXP} EXP");
+            print($"You need {PlayerLVL * 10} EXP to LVL UP");
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -53,26 +77,16 @@ public class NightOfTheGoblins : MonoBehaviour
         if (GameWon == false)
         {
 
-            if (PlayerEXP >= (PlayerLVL * 10))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                if (Input.GetKeyDown(KeyCode.UpArrow))
-                {
-
-                    PlayerLVL++;
-                    PlayerATK += (PlayerATK * 1.25f);
-                    print("Well Done!");
-                    print($"The player is now LVL {PlayerLVL}");
-                    print($"Your ATK Damage is now {PlayerATK}!");
-                    PlayerEXP = 0;
-                    GoblinBTL = false;
-                }
+                PlayerStats();
             }
 
             if (PlayerLVL == 5)
             {
                 print("You defeated the Goblins with your LVL 5 Laser Eyes Ability. You won the Game!");
                 GameWon = true;
-                
+                return;
             }
 
             if (GoblinBTL == false && PlayerTurn == false)
@@ -86,22 +100,21 @@ public class NightOfTheGoblins : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && GoblinBTL == false && PlayerTurn == true)
             {
                 Battle();
-                
+                return;
             }
             
             if (Input.GetKeyDown(KeyCode.Space) && PlayerTurn == true && GoblinBTL == true && BTLStart == false)
             {
-                GoblinHealth -= PlayerATK;
+                GoblinHealth -= Mathf.FloorToInt(PlayerATK);
                 print($"You slashed at the goblin for {Mathf.FloorToInt(PlayerATK)} Damage!");
 
-                if (GoblinHealth <= 0.99f)
+                if (GoblinHealth <= 0)
                 {
                     GoblinEXP = (Random.Range(5, 10) * GoblinLVL);
                     PlayerEXP += GoblinEXP;
                     print("You defeated the Goblin!");
                     print($"You gained {GoblinEXP} EXP");
                     PlayerTurn = false;
-                    
                     BTLStart = true;
 
                     if (PlayerEXP > (PlayerLVL * 10))
@@ -109,6 +122,7 @@ public class NightOfTheGoblins : MonoBehaviour
                         print("You have enough EXP to LVL UP");
                         print("Press UP!");
                         return;
+
                     }
 
                     GoblinBTL = false;
@@ -118,6 +132,7 @@ public class NightOfTheGoblins : MonoBehaviour
                 else
                 {
                     print($"It has {Mathf.FloorToInt(GoblinHealth)} Health left!");
+                    print("Press SPACE again to strike!");
 
                 }
 
