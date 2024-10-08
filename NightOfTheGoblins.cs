@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NightOfTheGoblins : MonoBehaviour
 {
+
+    //all my Ints and Booleans are declared here, some with values, some without.
     int PlayerEXP = 0;
     int PlayerLVL = 1;
     float PlayerATK = 1f;
@@ -26,6 +28,8 @@ public class NightOfTheGoblins : MonoBehaviour
 
     }
 
+
+    //This function exists to initialise the Goblin's Stats
     void Battle()
     {
 
@@ -44,6 +48,8 @@ public class NightOfTheGoblins : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        //The game runs because this boolean is false. When the player reaches LVL 5 they will make it true, and win. 
         if (GameWon == false)
         {
 
@@ -88,7 +94,7 @@ public class NightOfTheGoblins : MonoBehaviour
                 GoblinHealth -= PlayerATK;
                 print($"You slashed at the goblin for {Mathf.FloorToInt(PlayerATK)} Damage!");
 
-                if (GoblinHealth <= 0.99)
+                if (GoblinHealth <= 0.99f)
                 {
                     GoblinEXP = (Random.Range(5, 10) * GoblinLVL);
                     PlayerEXP += GoblinEXP;
